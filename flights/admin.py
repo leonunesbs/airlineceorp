@@ -1,3 +1,16 @@
 from django.contrib import admin
+from .models import *
 
-# Register your models here.
+
+class RepeatAdmin(admin.ModelAdmin):
+    pass
+
+
+class FlightAdmin(admin.ModelAdmin):
+    filter_horizontal = [
+        'repeat'
+    ]
+
+
+admin.site.register(Flight, FlightAdmin)
+admin.site.register(Repeat, RepeatAdmin)

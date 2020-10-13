@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'airlines',
     'airports',
     'banks',
-    'companies',
-    'routes'
+    'flights',
+    'routes',
 ]
 
 MIDDLEWARE = [

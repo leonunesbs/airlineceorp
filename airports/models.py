@@ -1,6 +1,7 @@
+from os import path
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_delete, post_save
+from django.db.models.signals import post_delete, post_save, pre_save
 from django.dispatch import receiver
 
 from routes.models import Route
@@ -12,6 +13,7 @@ AIRPORT_OPERATIONS = (
     ('V/I', 'VFR/IFR'),
 )
 
+
 class Airport(models.Model):
     icao = models.CharField(max_length=4, primary_key=True)
     name = models.CharField(max_length=50)
@@ -21,7 +23,8 @@ class Airport(models.Model):
     longitude = models.FloatField()
     length = models.FloatField()
     width = models.FloatField()
-    operation_mode = models.CharField(max_length=3, choices=AIRPORT_OPERATIONS, help_text='Modo de operação')
+    operation_mode = models.CharField(
+        max_length=3, choices=AIRPORT_OPERATIONS, help_text='Modo de operação')
     rate = models.FloatField(default=1.0)
 
     def __str__(self):
@@ -41,13 +44,13 @@ class Airport(models.Model):
                 route.rate = route.calculate_rate()
                 route.save()
 
-    # Uncomment to activate 
-    # @receiver(post_delete, sender='airports.Airport')
+    # Uncomment to activate
+    @receiver(post_delete, sender='airports.Airport')
     # SYNC AIRPORTS
     def sync_aerodromos(sender, instance, **kwargs):
         import csv
 
-        with open('C:\\Users\\leonu\\Documents\\VSCode\\airbrasilceo\\backend\\src\\airports\\aerodromos.csv', newline='', encoding='utf8') as csvfile:
+        with open(path.join('airports/aerodromos.csv'), newline='', encoding='utf8') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 operation = 'V'
@@ -69,9 +72,9 @@ class Airport(models.Model):
                 )
 
 
-
 class AirportLicense(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, help_text='Titular')
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, help_text='Titular')
     airport = models.ForeignKey('Airport', on_delete=models.CASCADE)
     is_active = models.BooleanField(default=False)
 

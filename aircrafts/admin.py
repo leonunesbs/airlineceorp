@@ -3,6 +3,4 @@ from .models import *
 
 
 admin.site.register(Aircraft)
-admin.site.register(Characteristic)
-admin.site.register(LoadState)
-admin.site.register(OwnerState)
+admin.site.register(State)
