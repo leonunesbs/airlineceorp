@@ -1,5 +1,6 @@
 # airlineceorp
 Backend Django simulador de companhias aéreas.
+Localizações reais de Aeroportos. Aeronaves com especificações técnicas reais (custo, consumo, velocidade, capacidade e demais).
 
 - Aeroportos de base de dados reais
 - Sistema para cálculo de rotas considerando a Latitude e Longitude do Aeroporto
