@@ -1,5 +1,5 @@
 # airlineceorp
-Simulador de companhias aéreas.
+Backend Django simulador de companhias aéreas.
 
 - Aeroportos de base de dados reais
 - Sistema para cálculo de rotas considerando a Latitude e Longitude do Aeroporto
